@@ -1,0 +1,3 @@
+[2025-01-10 02:00:42.112662] ValueError: invalid literal for int() with base 10: 'abc' | Inputs: num1 = None, num2 = None
+[2025-01-10 02:01:07.564776] ZeroDivisionError: division by zero | inputs: num1 = 12, num2 = 0
+[2025-01-10 02:01:30.286718] ValueError: invalid literal for int() with base 10: 'd' | Inputs: num1 = 10, num2 = None

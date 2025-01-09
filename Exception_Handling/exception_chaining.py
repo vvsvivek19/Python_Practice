@@ -16,3 +16,23 @@ try:
 except ValueError as e:
     print("Caught Exception:", e)
     print("Original Exception:", e.__cause__)
+    
+#Practicing exception chaining
+
+class DiscountCalculationError(Exception):
+    def __init__(self, message="Discount Cannot be less than 0 i.e. Negative"):
+        self.message = message
+        super().__init__(self.message)
+
+def calculate_discount(price, discount):
+    try:
+        if discount < 0:
+            raise ValueError("Discount value must be positive")
+    except ValueError as OriginalException:
+        raise DiscountCalculationError from OriginalException
+
+try:
+    calculate_discount(350,-1)
+except ValueError as msg:
+    print(f"Caught Exception:{msg}")
+    print("Original Exception:",msg.__cause__)
