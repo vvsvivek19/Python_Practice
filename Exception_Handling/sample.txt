@@ -1,0 +1,4 @@
+This is sample text to test exception handling of opening a file
+Python is easy
+It is simple
+Everything is an object
