@@ -1,0 +1,5 @@
+file = open(r"D:\Web Development\Tutorial Practice Codes\Python_Practice\File_Handling\MyData.txt",'r')
+str1 = file.read(6)
+print(str1)
+str1 = file.read(10)
+print(str1)
