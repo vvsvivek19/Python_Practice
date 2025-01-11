@@ -72,11 +72,12 @@ total_value = calculate_total_value(inventory)
 print(f"Total Inventory Value: ${total_value:.2f}")
 
 def search_item(inventory,item_name):
+    print(f"Searching {item_name}........... ")
     if item_name in inventory:
-        print("Item exists, below are the details")
+        print(f"{item_name} exists, below are the details")
         print(f"Item: {item_name}, Quantity: {inventory[item_name]['quantity']}, Price: {inventory[item_name]['price']}")
     else:
-        print("Item doesn't exists!!!!!!")
+        print(f"{item_name} doesn't exists!!!!!!")
 
 search_item(inventory,'Apple')
     

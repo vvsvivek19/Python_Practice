@@ -261,7 +261,5 @@ In the above code, while re-raising the exception using raise, the exception's t
     -No need to specify the exception again: Specifying the exception type again would be redundant. 
     You already caught the exception in the except block (in this case, ZeroDivisionError as zde), 
     so Python assumes you want to re-raise the same exception.
-
-
 '''
     
