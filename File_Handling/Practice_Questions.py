@@ -132,14 +132,17 @@ with open(file_path,"r") as file:
         if item.strip():
             lines.append(item)
 with open(file_path,"w+") as file:
-    content = file.read()
-    print("Content before:")
-    print(content)
     file.writelines(lines)
     file.seek(0)
     content = file.read()
     print("Content after:")
     print(content)
+#efficient code
+# with open(file_path, "r+") as file:
+#     lines = [line for line in file if line.strip()]
+#     file.seek(0)
+#     file.writelines(lines)
+#     file.truncate()
 '''
 How It Works:
 item.strip():
@@ -154,5 +157,86 @@ lines.append(item):
     If the condition if item.strip(): is True (meaning the line contains meaningful text), the item 
     (line) is added to the lines list using the append() method.
 '''
+
+#SOLUTION 9: Merge two files
+
+file_path_1 = r"D:\Web Development\Tutorial Practice Codes\Python_Practice\File_Handling\TestData.txt"
+file_path_2 = r"D:\Web Development\Tutorial Practice Codes\Python_Practice\File_Handling\MyData.txt"
+merged_file_path = r"D:\Web Development\Tutorial Practice Codes\Python_Practice\File_Handling\Merged_file.txt"
+
+with open(file_path_1,"r") as file:
+    content_1 = file.readlines()
+with open(file_path_2,"r") as file:
+    content_2 = file.readlines()
+with open(merged_file_path,"w+") as file:
+    file.writelines(content_1)
+    file.writelines(content_2)
+    file.seek(0,0)
+    content = file.read()
+    print(content)
+
+#SOLUTION 10: Find and Replace
+file_path = r"D:\Web Development\Tutorial Practice Codes\Python_Practice\File_Handling\CatPoem.txt"
+with open(file_path,"r+") as file:
+    lines = file.readlines()
+    # print(lines)
+    updated_lines = [item.lower().replace("cat","bat") for item in lines]
+    file.seek(0,0)
+    file.writelines(updated_lines)
+    file.truncate()
+with open(file_path,"r") as file:
+    lines = file.read()
+    print(lines)
+    
+#SOLUTION 11
+
+file_path = r"D:\Web Development\Tutorial Practice Codes\Python_Practice\File_Handling\logFile.txt"
+# error_lines = []
+with open(file_path,"r") as file:
+    lines = file.readlines()
+    error_lines = [item.strip("\n") for item in lines if "ERROR" in item]
+    # for item in lines:
+    #     if "ERROR" in item:
+    #         error_lines.append(item)
+print("Error lines are:")
+for item in error_lines:
+    print(item)
+
+#SOLUTION 12: JSON File handling
+
+import json
+try:
+    filePath = r"D:\Web Development\Tutorial Practice Codes\Python_Practice\File_Handling\sample.json"
+
+    data = [{"Name": "Alice", "Age": 25, "City": "New York", "Country": "USA", "Profession": "Software Engineer"},
+        {"Name": "Bob", "Age": 30, "City": "Los Angeles", "Country": "USA", "Profession": "Data Scientist"}]
+
+    #Reading the existing data of json file
+    try:
+        with open(filePath,"r") as file:
+            existing_data = json.load(file)
+    except FileNotFoundError:
+        existing_data = []
+    for item in data:
+        existing_data.append(item)
+    #updating the json file with new data
+    with open(filePath, "w") as file:
+        json.dump(existing_data,file,indent=4)
+    
+    # Read and modify JSON data
+    with open(filePath,"r") as file:
+        new_data = json.load(file)
+    #Updating Bob's Age
+    for record in new_data:
+        if record["Name"] == "Bob":
+            record["Age"] = 31
+    #Saving updated data
+    with open(filePath, "w") as file:
+        json.dump(new_data,file,indent=4)
+except Exception as msg:
+    print(msg)
+
+
+
     
     

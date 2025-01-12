@@ -1,0 +1,6 @@
+Hello, World!
+Welcome to Python file handling
+This is an appended line.
+File handling is easy in Python.
+This is a test file
+It is stored in hard disk
