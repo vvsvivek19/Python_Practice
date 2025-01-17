@@ -317,3 +317,76 @@ print("Decompression done successfully")
 
 #SOLUTION 17 - Encryption and Decryption
 from cryptography.fernet import Fernet
+
+key = Fernet.generate_key()
+cipher = Fernet(key)
+
+file_path = r"D:\Web Development\Tutorial Practice Codes\Python_Practice\File_Handling\text.txt"
+encrypted_path = r"D:\Web Development\Tutorial Practice Codes\Python_Practice\File_Handling\encrypted_text.txt"
+decrypted_path = r"D:\Web Development\Tutorial Practice Codes\Python_Practice\File_Handling\decrypted_text.txt"
+
+#reading data from file and encrypt it
+with open(file_path,'rb') as file:
+    data = file.read()
+
+encrypted_data = cipher.encrypt(data)
+
+#writing encrypted data in a encrypted file
+with open(encrypted_path,'wb') as file:
+    file.write(encrypted_data)
+
+#decrypting data
+with open(encrypted_path,'rb') as file:
+    encrypted_data = file.read()
+
+decrypted_data = cipher.decrypt(encrypted_data)
+
+#writing decrypted data into an another file
+with open(decrypted_path,'wb') as file:
+    file.write(decrypted_data)
+
+#reading data from decrypted file
+with open(decrypted_path,"rb") as file:
+    decrypted_data = file.read()
+
+print("File encryption and decryption successful")
+print("Printing drcypted data")
+print(decrypted_data)
+
+#SOLUTION 18 - Directory Operations
+import os
+dir_path = r"D:\Web Development\Tutorial Practice Codes\Python_Practice\File_Handling"
+output_file = r"D:\Web Development\Tutorial Practice Codes\Python_Practice\File_Handling\file_list.txt"
+
+files = os.listdir(dir_path)
+
+with open(output_file,"w") as file:
+    for name in files:
+        file.write(name + "\n")
+
+print("All the files name from give directory path are written to file_list.txt")
+
+#SOLUTION 19 - Removing duplicate text
+file_path = r"D:\Web Development\Tutorial Practice Codes\Python_Practice\File_Handling\duplicate_text.txt"
+output_path = r"D:\Web Development\Tutorial Practice Codes\Python_Practice\File_Handling\unique_text.txt"
+with open(file_path, 'r') as file:
+    all_lines = file.readlines()
+unique_lines = list(set(all_lines))
+with open(output_path,'w') as file:
+    file.writelines(unique_lines)
+print("Duplicate lines removed and saved to a new file.")
+
+#SOLUTION 20 - Custom Log Generator
+import time
+from datetime import datetime
+
+log_file = r"D:\Web Development\Tutorial Practice Codes\Python_Practice\File_Handling\log.txt"
+messages = ["INFO: Task completed", "ERROR: Something went wrong", "DEBUG: Value updated"]
+
+with open(log_file,'w') as file:
+    for index in range(10):
+        log_message = f"{datetime.now()}:{messages[index % len(messages)]}\n"
+        print(log_message,end='')
+        file.write(log_message)
+        time.sleep(1)
+print("Log file generated with timestamps and messages.")
