@@ -236,7 +236,84 @@ try:
 except Exception as msg:
     print(msg)
 
+#SOLUTION 13 - CSV File manipulation
 
+import csv
 
+file_path = r"D:\Web Development\Tutorial Practice Codes\Python_Practice\File_Handling\data.csv"
+
+#opening the existing CSV file
+with open(file_path, "w",newline="") as file:
+    writer = csv.writer(file)
+    writer.writerow(["Name","Age","city"])
+    writer.writerow(["Vivek",25,"Kanpur"])
+    writer.writerow(["Alice",25,"New York"])
+
+file_path = r"D:\Web Development\Tutorial Practice Codes\Python_Practice\File_Handling\data.csv"
+import csv
+#Add a new row
+with open(file_path,"a",newline="") as file:
+    writer = csv.writer(file)
+    writer.writerow(["Charlie", 28, "Chicago"])
+
+#Read and print content
+with open(file_path,"r") as file:
+    reader = csv.reader(file)
+    for row in reader:
+        print(row)
+
+#Updating existing data in the file
+rows = []
+with open(file_path,"r") as file:
+    reader = csv.reader(file)
+    for row in reader:
+        if row[0] == "Vivek":
+            row[1] = 26
+        rows.append(row)
+
+with open(file_path,"w",newline="") as file:
+    writer = csv.writer(file)
+    writer.writerows(rows)
+
+#SOLUTION 15 - Binary file handling
+file_path = r"D:\Web Development\Tutorial Practice Codes\Python_Practice\File_Handling\binary_file.bin"
+#binary data
+data = b"Hello,how are you? This is biinary data"
+with open(file_path,"wb") as file:
+    file.write(data)
+
+#reading data from binary file
+with open(file_path,"rb") as file:
+    file_data = file.read()
+
+print("Binary data->",file_data)
     
-    
+#SOLUTION 16 - File compression
+import gzip
+import shutil
+
+file_path = r"D:\Web Development\Tutorial Practice Codes\Python_Practice\File_Handling\text.txt"
+compressed_path = r"D:\Web Development\Tutorial Practice Codes\Python_Practice\File_Handling\compressed_text.txt.gz"
+decompressed_path = r"D:\Web Development\Tutorial Practice Codes\Python_Practice\File_Handling\decompressed_text.txt"
+
+data = b"""In a world of swirling galaxies and dancing stars, a lone adventurer, armed with nothing but wit and a rusty compass, embarked on a journey across uncharted lands. He faced perils untold  treacherous rivers, treacherous mountains, and creatures of myth and legend. Yet, with each step, his resolve grew stronger, fueled by an insatiable thirst for knowledge and a yearning for the unknown. He sought not fortune or fame, but the thrill of discovery, the joy of pushing the boundaries of the known."""
+
+#writing data in binary file
+with open(file_path, "wb") as file:
+    file.write(data)
+
+#compressing the file
+with open(file_path,"rb") as file_in:
+    with gzip.open(compressed_path,"wb") as file_out:
+        shutil.copyfileobj(file_in,file_out)
+
+print("Compression done successfully")
+
+#decompressing the file
+with open(compressed_path,"rb") as file_in:
+    with gzip.open(decompressed_path,"wb") as file_out:
+        shutil.copyfileobj(file_in,file_out)
+print("Decompression done successfully")
+
+#SOLUTION 17 - Encryption and Decryption
+from cryptography.fernet import Fernet
