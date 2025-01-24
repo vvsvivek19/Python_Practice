@@ -144,7 +144,7 @@ while True:
         print("Invalid input! Please enter a number between 1 and 7.")
         continue
     
-    #Exiting logic
+    #Creating Account logic
     if choice == 1:
         acc_holder = input("Enter account holder name: ")
         new_account = BankAccount(last_account_number,acc_holder)
@@ -154,6 +154,7 @@ while True:
             "account_holder" : new_account.account_holder,
             "balance" : new_account.balance
         })
+        #accessing a static method with class name
         BankAccount.save_accounts(accounts,last_account_number)
         print("Account created successfully!")
     
