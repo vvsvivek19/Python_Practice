@@ -1,40 +1,42 @@
 '''
-Implement a Person class with private attributes (__name, __age) and public getter and setter methods to access them.
+Static and Class Methods
+************************
+Implement a Student class with:
+A class method to track the number of students.
+A static method that validates a given grade (should be between 0-100).
+
 '''
+class Student:
+    student_count = 0
+    def __init__(self,name,age,grade):
+        self.name = name
+        self.age = age
+        self.grade = grade
+        Student.student_count += 1
+    
+    @classmethod
+    def total_student(cls):
+        return cls.student_count
+    
+    @staticmethod
+    def isvalidgrade(grade):
+        return 0 <= grade <= 100
 
-class Person:
-    def __init__(self,name,age):
-        self.__name = name
-        self.__age = age
     
-    @property
-    def name(self):
-        return self.__name
-    
-    @property
-    def age(self):
-        return self.__age
-    
-    @name.setter
-    def name(self,name):
-        if isinstance(name,str):
-            self.__name = name
-        else:
-            print("Name must be a string")
-     
-    @age.setter
-    def age(self,age):
-        if isinstance(age,int) and age>0:
-            self.__name = age
-        else:
-            print("Age must be a positive integer")
+student_details = [
+    {"name": "Vivek Singh", "age": 24, "grade": 70},
+    {"name": "Aisha Patel", "age": 22, "grade": 85},
+    {"name": "David Lee", "age": 26, "grade": 68},
+    {"name": "Maria Garcia", "age": 21, "grade": 92},
+    {"name": "John Doe", "age": 25, "grade": 78}
+]
 
-p1 = Person("Vivek Singh",20)
-name = p1.name
-print(name)
-age = p1.age
-print(age)
-p1.name = "Vivek Singh chauhan"
-name = p1.name
-print(name)
-p1.age = "asd"
+print(len(student_details))
+
+student_objects = []
+
+for i in range(len(student_details)):
+    student_objects.append(Student(student_details[i]["name"],student_details[i]["age"],student_details[i]["grade"]))
+
+print("Total students->",Student.total_student())
+print(Student.isvalidgrade(student_objects[2].grade))

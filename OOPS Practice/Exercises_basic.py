@@ -10,18 +10,20 @@ class Car:
         self.__year = year
     def __str__(self):
         return f"Brand: {self.__brand}, Model: {self.__model}, Year: {self.__year}"
-    def print_details(self):
-        print("Details of car")
-        print("********************")
-        print("Brand->",self._brand)
-        print("Model->",self._model)
-        print(f"Year-> {self._year}\n")
+    #Instead of creating a print method, override the __str__ method
+    # def print_details(self):
+    #     print("Details of car")
+    #     print("********************")
+    #     print("Brand->",self._brand)
+    #     print("Model->",self._model)
+    #     print(f"Year-> {self._year}\n")
         
         
 car1 = Car("Mercedes","SLS 100",2025)
 car2 = Car("Hundai","Venue",2024)
-car1.print_details()
-car2.print_details()
+print(car1)
+print(car2)
+
 
 '''
 Create a BankAccount class with a class variable bank_name and instance variables account_holder 
