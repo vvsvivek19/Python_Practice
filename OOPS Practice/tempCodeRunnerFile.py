@@ -1,54 +1,40 @@
-#SOLUTION 3
-starting_acc_num = 1000
-class BankAccount:
-    def __init__(self,acc_num=None,acc_holder=None,bal=500):
-        self.account_number = acc_num
-        self.account_holder = acc_holder
-        self.balance = bal
-        self.create_account()
-    def create_account(self):
-        global starting_acc_num
-        self.account_number = starting_acc_num
-        starting_acc_num += 1
-        self.account_holder = input("Please Enter the account holder name:")
-        print("Account created successfully with minimum balance 500!!")
-    def deposite(self,amount):
-        self.balance = self.balance + amount
-    def withdraw(self,amount):
-        if self.balance - amount < 0:
-            print("Minimum balance cannot be less than zero!")
+'''
+Implement a Person class with private attributes (__name, __age) and public getter and setter methods to access them.
+'''
+
+class Person:
+    def __init__(self,name,age):
+        self.__name = name
+        self.__age = age
+    
+    @property
+    def name(self):
+        return self.__name
+    
+    @property
+    def age(self):
+        return self.__age
+    
+    @name.setter
+    def name(self,name):
+        if isinstance(name,str):
+            self.__name = name
         else:
-            self.balance = self.balance - amount
-    def account_details(self):
-        print("Printing account holder's details")
-        print("*********************************")
-        print("Account Number:",self.account_number)
-        print("Account Holder:",self.account_holder)
-        print("Balance:",self.balance)
-    def menu(self):
-        print("Welcome to United Bank, Please choose from below:")
-        print("1. Print account details")
-        print("2. Deposite Money")
-        print("3. Withdraw money")
-        print("4. Exit")
-        choice = int(input("Please Enter the choice from 1 to 4: "))
-        if choice == 4:
-            exit()
-        elif choice == 1:
-            self.account_details()
-        elif choice == 2:
-            amount = int(input("Please Enter the amount to be deposited: "))
-            self.deposite(amount)
-        elif choice == 3:
-            amount = int(input("Please Enter the amount to be withdrawn: "))
-            self.withdraw(amount)
+            print("Name must be a string")
+     
+    @age.setter
+    def age(self,age):
+        if isinstance(age,int) and age>0:
+            self.__name = age
         else:
-            print("Invalid Choice, Bye Bye!!")
+            print("Age must be a positive integer")
 
-acc1 = BankAccount()
-
-
-        
-        
-        
-        
+p1 = Person("Vivek Singh",20)
+name = p1.name
+print(name)
+age = p1.age
+print(age)
+p1.name = "Vivek Singh chauhan"
+name = p1.name
+print(name)
+p1.age = "asd"
