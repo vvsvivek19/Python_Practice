@@ -89,8 +89,6 @@ student_details = [
     {"name": "John Doe", "age": 25, "grade": 78}
 ]
 
-print(len(student_details))
-
 student_objects = []
 
 for student in student_details:

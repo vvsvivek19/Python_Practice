@@ -1,42 +1,27 @@
-'''
-Static and Class Methods
-************************
-Implement a Student class with:
-A class method to track the number of students.
-A static method that validates a given grade (should be between 0-100).
 
-'''
-class Student:
-    student_count = 0
-    def __init__(self,name,age,grade):
-        self.name = name
-        self.age = age
-        self.grade = grade
-        Student.student_count += 1
-    
-    @classmethod
-    def total_student(cls):
-        return cls.student_count
-    
-    @staticmethod
-    def isvalidgrade(grade):
-        return 0 <= grade <= 100
+from abc import ABC, abstractmethod
+from math import pi
+class Shape(ABC):
+    @abstractmethod
+    def area(self):
+        pass
 
-    
-student_details = [
-    {"name": "Vivek Singh", "age": 24, "grade": 70},
-    {"name": "Aisha Patel", "age": 22, "grade": 85},
-    {"name": "David Lee", "age": 26, "grade": 68},
-    {"name": "Maria Garcia", "age": 21, "grade": 92},
-    {"name": "John Doe", "age": 25, "grade": 78}
-]
+class Circle(Shape):
+    def __init__(self,radius):
+        self.radius = radius
+    def area(self):
+        return pi * (self.radius**2)
 
-print(len(student_details))
+class Rectangle(Shape):
+    def __init__(self,len,bre):
+        self.length = len
+        self.breadth = bre
+    def area(self):
+        return self.length * self.breadth
 
-student_objects = []
+c1 = Circle(5.6)
+print(c1.area())
 
-for i in range(len(student_details)):
-    student_objects.append(Student(student_details[i]["name"],student_details[i]["age"],student_details[i]["grade"]))
-
-print("Total students->",Student.total_student())
-print(Student.isvalidgrade(student_objects[2].grade))
+r1 = Rectangle(6,3.7)
+print(r1.area())
+        
