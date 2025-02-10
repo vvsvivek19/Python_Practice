@@ -1,4 +1,7 @@
+#IMPORTANT MODULES
 import mysql.connector
+import time
+import pymysql
 #Class definition for class Book
 class Book:
     
@@ -7,20 +10,47 @@ class Book:
         self.author = input("Enter Author: ")
         self.ISBN = input("Enter ISBN: ")
         self.status = "Available"
+        self.available_copies = 0
     
+        copies = input("Please enter the number of available copies: ")
+        if not copies.isdigit():  # Check if input is a non-negative integer
+            print("Unvalid value entered, setting available copies to 0")
+            self.available_copies = 0
+            raise ValueError("Error: Available copies must be a non-negative integer.")
+        else: 
+            self.available_copies = int(copies)  # Convert to integer after validation    
+        
     def __str__(self):
         status = "Borrowed" if self.is_borrowed else "Available"
         return f"Book: {self.title}\nAuthor: {self.author}\nISBN: {self.ISBN}\nStatus: {status}\n"
 
 #Class definition for class Library
 class Library:
-    books = []
     
+    #Book Adding function
     @classmethod
     def add_book(cls):
-        book = Book()
-        cls.books.append(book)
-        print("Book added successfully")
+        try:
+            conn = pymysql.connect(
+                host="localhost",
+                user="root",
+                password="Vivek1465",
+                database="librarydb"
+            )
+            cursor = conn.cursor()
+            book = Book()
+            query = """INSERT INTO Books (title, author, isbn, status, available_copies) 
+                    VALUES (%s, %s, %s, %s, %s);"""
+            values = (book.title, book.author, book.ISBN, book.status, book.available_copies)
+            cursor.execute(query,values)
+            conn.commit()  # Commit transaction
+            print("✅ Book added successfully!")
+        except mysql.connector.Error as err:
+             print("❌ Error Occurred:", err)
+        finally:
+            # Close connection
+            cursor.close()
+            conn.close()
     
     @classmethod
     def remove_book(cls):
