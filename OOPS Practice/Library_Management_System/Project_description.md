@@ -6,18 +6,24 @@ We can break the features into core features (required) and additional features 
 
 Connect Python to MySQL using mysql-connector-python or SQLAlchemy.
 Create a database (LibraryDB) and required tables (Books, BorrowedBooks, Users).
+
 ✅ Book Management
-
-Add books (store title, author, ISBN, status).
-Remove books (delete from database by ISBN).
-Update book details (e.g., changing the author or title).
-Search books (by title, author, or ISBN).
+Add books (store title, author, ISBN, status). --> Done
+Remove books (delete from database by ISBN). --> Done
+Search books (by title, author, or ISBN). --> Done
 Display available books.
-✅ Borrow & Return System
+Update book details (e.g., changing the author or title).
 
+✅ Borrow & Return System
 Borrow a book (mark as borrowed, store user details).
+- In this step, you will implement the functionality to borrow a book, which involves:
+    ✅ Checking if the user is new or already exists. If new then register them and then move borrowing
+    ✅ Prevent duplicate borrowing (a book can’t be borrowed twice until returned).
+    ✅ Checking if the book exists in the library.
+    ✅ Ensuring there are available copies to borrow.
+    ✅ Updating the Books table (reducing available copies).
+    ✅ Adding an entry in the BorrowedBooks table.
 Return a book (update availability status).
-Prevent duplicate borrowing (a book can’t be borrowed twice until returned).
 Show borrowed books (list books currently borrowed).
 ✅ User Management (Basic)
 

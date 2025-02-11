@@ -1,7 +1,7 @@
 #IMPORTANT MODULES
-import mysql.connector
 import time
 import pymysql
+
 #Class definition for class Book
 class Book:
     
@@ -26,8 +26,12 @@ class Book:
 
 #Class definition for class Library
 class Library:
-    
-    #Book Adding function
+
+    '''
+    Method - Add book
+    Access level - Admin only
+    Description - Allows you to add a book to library
+    '''
     @classmethod
     def add_book(cls):
         try:
@@ -45,32 +49,89 @@ class Library:
             cursor.execute(query,values)
             conn.commit()  # Commit transaction
             print("✅ Book added successfully!")
-        except mysql.connector.Error as err:
+        except pymysql.MySQLError  as err:
              print("❌ Error Occurred:", err)
         finally:
             # Close connection
             cursor.close()
             conn.close()
     
+    '''
+    Method - Delete book
+    Access level - Admin only
+    Description - Allows you to delete a book to library
+    '''
     @classmethod
     def remove_book(cls):
-        isbn = input("Enter ISBN of the book to remove: ").strip()
-        for book in cls.books:
-            if book.ISBN == isbn:
-                cls.books.remove(book)
-                print("Book removed successfully")
-                return
-        print("Book not found!\n")
+        try:
+            ISBN = input("Please enter the ISBN of the book you want to delete: ").strip()
+            conn = pymysql.connect(
+                host="localhost",
+                user="root",
+                password="Vivek1465",
+                database="librarydb"
+            )
+            cursor = conn.cursor()
+            cursor.execute("SELECT * FROM Books WHERE isbn = %s;",(ISBN,))
+            book = cursor.fetchone()
+            if book:
+                query = """DELETE FROM Books WHERE isbn = %s;"""
+                values = (ISBN,)
+                cursor.execute(query,values)
+                conn.commit()  # Commit transaction
+                print("✅ Book removed successfully!")
+            else:
+                print("❌ Book not found!")
+        except pymysql.MySQLError as err:
+             print("❌ Error Occurred:", err)
+        finally:
+            # Close connection
+            cursor.close()
+            conn.close()
     
+    '''
+    Method - Add book
+    Access level - Admin and User
+    Description - Allows you to search a book in library
+    '''
     @classmethod
     def search_book(cls):
-        title = input("Enter title of the book to search: ").strip()
-        for book in cls.books:
-            if book.title == title.lower():
-                print("Book found, below are the details")
-                print(book)
+        try:
+            conn = pymysql.connect(
+                host="localhost",
+                user="root",
+                password="Vivek1465",
+                database="librarydb"
+            )
+            cursor = conn.cursor()
+            search_choice = int(input("Choose search criteria:\n1. Title\n2. Author\n3. ISBN\nEnter choice: "))
+            if search_choice == 1:
+                title = input("Enter the book title: ").strip()
+                cursor.execute("SELECT * FROM Books WHERE title LIKE %s;", (f"%{title}%",))
+            elif search_choice == 2:
+                author = input("Enter the author's name: ").strip()
+                cursor.execute("SELECT * FROM Books WHERE author LIKE %s;",(f"%{author}%",))
+            elif search_choice == 3:
+                ISBN = input("Enter the ISBN: ").strip()
+                cursor.execute("SELECT * FROM Books WHERE isbn = %s;",(ISBN,))
+            else:
+                print("❌ Invalid Option Selected")
                 return
-        print("Book not found!\n")
+            
+            books = cursor.fetchall()
+            if books:
+                print("\n📚 Matching Books:\n" + "-"*30)
+                for book in books:
+                    print(f"📖 Title: {book[1]}\n👨‍💼 Author: {book[2]}\n🔢 ISBN: {book[3]}\n📌 Status: {book[4]}\n📦 Available Copies: {book[5]}\n" + "-"*30)
+            else:
+                print("❌ No book found matching the search criteria!")
+        except pymysql.MySQLError as err:
+             print("❌ Error Occurred:", err)
+        finally:
+            # Close connection
+            cursor.close()
+            conn.close()
+    
     
     @classmethod
     def borrow_book(isbn: str,cls):
