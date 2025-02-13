@@ -132,7 +132,11 @@ class Library:
             cursor.close()
             conn.close()
     
-    
+    '''
+    Method - Borrow book
+    Access level - Admin and User
+    Description - Allows a user to borrow the book. Admin can also access this function.
+    '''
     @classmethod
     def borrow_book(isbn: str,cls):
         isbn = input("Enter ISBN of the book to borrow: ").strip()
