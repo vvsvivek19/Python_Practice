@@ -136,6 +136,13 @@ class Library:
     Method - Borrow book
     Access level - Admin and User
     Description - Allows a user to borrow the book. Admin can also access this function.
+    Functionality:
+    ✅ Checking if the user is new or already exists. If new then register them as admin and then move borrowing
+    ✅ Prevent duplicate borrowing (a book can’t be borrowed twice until returned).
+    ✅ Checking if the book exists in the library.
+    ✅ Ensuring there are available copies to borrow.
+    ✅ Updating the Books table (reducing available copies).
+    ✅ Adding an entry in the BorrowedBooks table.
     '''
     @classmethod
     def borrow_book(isbn: str,cls):
