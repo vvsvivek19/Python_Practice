@@ -38,3 +38,24 @@ pattern_to_replace = r"^\s+|\s+$" # ^\s+ remove leading spaces # ^\s+$ removes t
 replacement = ""
 result_str = re.sub(pattern_to_replace,replacement,target_string)
 print(result_str)
+
+#Substitute multiple whitespaces with single whitespace using regex
+target_string = "Jessa Knows Testing    And Machine     Learning \t \n"
+pattern_to_replace = r"\s+"
+replacement = " "
+result_str = re.sub(pattern_to_replace,replacement,target_string)
+print(result_str)
+
+#Defining number of pattern occurences to be replaced
+target_string = "Jessa Knows Testing And Machine Learning."
+pattern_to_replace = r"\s"
+replacement = "-"
+result_str = re.sub(pattern_to_replace,replacement,target_string,count=3)
+print(result_str)
+
+#Regex replace group/multiple regex patterns
+target_string = "Emma-Kelly Jessa Joy Scott-Joe Jerry"
+pattern_to_replace = r"(\s)|(-)"
+replacement = ","
+result_str = re.sub(pattern_to_replace,replacement,target_string)
+print(result_str)
